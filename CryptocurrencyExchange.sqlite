@@ -1,0 +1,38 @@
+/* Checking out transactions table */
+SELECT * FROM transactions;
+
+/* total 'money_in' in table */
+SELECT SUM(money_in) AS 'total_money_in'
+FROM transactions;
+
+/* total 'money_out' in table */
+SELECT SUM(money_out) AS 'total_money_out'
+FROM transactions;
+
+/*money_in transactions in table*/
+SELECT COUNT(money_in)
+FROM transactions;
+
+/*money_in transactions in table where ‘BIT’ is the currency*/
+SELECT COUNT(money_in)
+FROM transactions
+WHERE currency = 'BIT';
+
+/* Largest Transaction between money_in or money_out*/
+SELECT MAX(money_in)
+FROM transactions;
+ 
+SELECT MAX(money_out)
+FROM transactions;
+
+/* Average money_in for currency ethereum */
+SELECT AVG(money_in) AS 'avg_ETH'
+FROM transactions
+WHERE currency LIKE '%ETH%';
+
+/*  Build Ledger */
+SELECT date AS 'Date', 
+   ROUND(AVG(money_in), 2) AS 'Average Buy',
+   ROUND(AVG(money_out), 2) AS 'Average Sell'
+FROM transactions
+GROUP BY date;
